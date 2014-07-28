@@ -1,0 +1,27 @@
+<br />
+<a href="/charts/new" class="btn btn-primary">Create Chart</a>
+<br />
+<br />
+
+<table>
+  <thead>		
+  	<tr>
+  		<th>Title</th>
+  		<th>Description</th>
+  		<th>SQL Query</th>
+  	</tr>
+  </thead>
+  <% @charts.each do |c| %>
+  	<tr>
+  		<td><a href="/charts/<%= c.id %>"><%= c.title %></a></td>
+      <td><%= c.description %></td>
+      <td><%= c.sql_query %></td>
+  	</tr>
+  <% end %>
+</table>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('table').dataTable();
+	});
+</script

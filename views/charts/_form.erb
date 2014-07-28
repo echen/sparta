@@ -1,0 +1,91 @@
+<form class="form-horizontal" role="form" action="/charts/save" method="post">
+  
+  <input type="hidden" name="chart[id]" value="<%= @chart.id %>" />
+  
+  <div class="form-group">
+    <label for="chart[title]" class="col-sm-1 control-label">Title</label>
+    <div class="col-sm-5">
+      <input type="text" name="chart[title]" placeholder="Title of your chart" class="form-control" value="<%= @chart.title %>" />
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <label for="chart[creator]" class="col-sm-1 control-label">Creator</label>
+    <div class="col-sm-5">
+      <input type="text" name="chart[creator]" placeholder="Creator of this chart" class="form-control" value="<%= @chart.creator %>" />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="chart[description]" class="col-sm-1 control-label">Description</label>
+    <div class="col-sm-5">
+      <textarea name="chart[description]" placeholder="Markdown-compatible description" class="form-control" rows="5"><%= @chart.description %></textarea>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <label for="chart[chart_type]" class="col-sm-1 control-label">Chart Type</label>
+    <div class="col-sm-5">
+      <select name="chart[chart_type]">
+        <% ["Bar Chart", "Time Series", "Line Chart"].each do |chart_type| %>
+          <option value="<%= chart_type %>" <%= @chart.chart_type == chart_type ? "selected" : "" %>><%= chart_type %></option>        
+        <% end %>
+      </select>
+    </div>
+  </div>  
+
+  <div class="form-group">
+    <label for="chart[sql_query]" class="col-sm-1 control-label">SQL Query</label>
+    <div class="col-sm-5">
+      <textarea name="chart[sql_query]" placeholder="SQL Query" class="form-control" rows="10" id="chart_sql_query"><%= @chart.sql_query %></textarea>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <label for="chart[x_column]" class="col-sm-1 control-label">X Column</label>
+    <div class="col-sm-5">
+      <input type="text" name="chart[x_column]" placeholder="Name of your x-axis column" class="form-control" value="<%= @chart.x_column %>" />
+    </div>
+  </div>  
+
+  <div class="form-group">
+    <label for="chart[y_column]" class="col-sm-1 control-label">Y Column</label>
+    <div class="col-sm-5">
+      <input type="text" name="chart[y_column]" placeholder="Name of your y-axis column" class="form-control" value="<%= @chart.y_column %>" />
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <label for="chart[grouping_column]" class="col-sm-1 control-label">Grouping Column</label>
+    <div class="col-sm-5">
+      <input type="text" name="chart[grouping_column]" placeholder="Name of your grouping column" class="form-control" value="<%= @chart.grouping_column %>" />
+    </div>
+  </div>  
+
+  <br />
+  
+  <input type="submit" class="btn btn-primary" value="Save"></input>
+
+  <!-- TODO: RESTify -->
+  <% if !@chart.id.nil? && !@chart.id.to_s.empty? %>
+    <a href="/charts/<%= @chart.id %>/copy" class="btn btn-primary">Copy</a>    
+    <a href="/charts/<%= @chart.id %>/delete" class="btn btn-primary" onclick="return confirm('Are you sure?')">Delete</a>
+  <% end %>
+  
+</form>
+
+<script type="text/javascript">
+	var editor = CodeMirror.fromTextArea(document.getElementById("chart_sql_query"), {
+    mode: "text/x-mysql",
+    tabMode: "indent",
+    matchBrackets: true,
+    lineNumbers: true,
+    lineWrapping: true,
+    onFocus: function() { $(".CodeMirror").toggleClass("myCodeMirror-focused"); },
+    onCursorActivity: function() {
+      editor.setLineClass(hlLine, null, null);
+      hlLine = editor.setLineClass(editor.getCursor().line, null, "activeline");
+    }
+  });
+  var hlLine = editor.setLineClass(0, "activeline");
+</script>

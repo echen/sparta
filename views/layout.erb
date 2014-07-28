@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8' content='text/html' http-equiv='Content-Type'>
+    <title>Sparta</title>
+
+    <script src="/js/sparta-charts.js" type="text/javascript"></script>
+    <script src="/js/sparta-quotes.js" type="text/javascript"></script>    
+    <link href="/css/main.css" media="screen" rel="stylesheet" type="text/css" />    
+
+    <!-- jQuery -->
+    <script src="/js/jquery.min.js" type="text/javascript"></script>    
+
+    <!-- DataTables -->
+    <script src="/js/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="/js/dataTables.bootstrap.js" type="text/javascript"></script>    
+    <link href="/css/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="/css/jquery.dataTables_themeroller.min.css" rel="stylesheet">
+		
+    <!-- Bootstrap -->
+    <script src="/js/bootstrap.min.js" type="text/javascript"></script>
+    <link href="/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/bootstrap-carousel.css" rel="stylesheet">    
+
+    <!-- d3 -->
+    <script src="/js/d3.min.js" type="text/javascript"></script>
+		
+    <!-- nvd3 -->
+    <script src="/js/nv.d3.min.js" type="text/javascript"></script>
+    <link href="/css/nv.d3.min.css" rel="stylesheet" type="text/css">		
+
+    <!-- Underscore -->
+    <script src="/js/underscore-min.js" type="text/javascript"></script>
+
+    <!-- Font Awesome -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    
+    <!-- Code Mirror -->
+    <script src="/js/codemirror.js" type="text/javascript"></script>
+    <script src="/js/mysql.js" type="text/javascript"></script>    
+    <link href="/css/codemirror.css" rel="stylesheet">    
+  </head>
+
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+	
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Sparta</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="/charts">Charts</a></li>
+            <li><a href="/dashboards">Dashboards</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <%= yield %>
+      
+		  <hr />
+		  
+      <footer class="footer">
+        <p class="pull-right">
+          <i id="quote"></i>
+        </p>
+      </footer>
+    </div>    
+		
+  </body>
+
+  <script type="text/javascript">
+      $("#quote").text(sparta.quote());
+    </script>
+</html>
