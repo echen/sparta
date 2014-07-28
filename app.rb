@@ -7,6 +7,7 @@ require './environments'
 class Chart < ActiveRecord::Base
 end
 
+# TODO: pull from the environments.rb (or some database.yml) file.
 SQL_CLIENT = Mysql2::Client.new(:host => 'localhost', :username => 'root', :password => '', :database => 'sparta')
 
 get '/' do
@@ -32,7 +33,7 @@ get '/charts/:id' do
   erb :"charts/show"
 end
 
-# TODO: RESTify
+# TODO: RESTify.
 get '/charts/:id/copy' do
   orig_chart = Chart.find(params[:id])
   @chart = Chart.new
@@ -47,7 +48,7 @@ get '/charts/:id/copy' do
   redirect "charts/#{@chart.id}"
 end
 
-# TODO: RESTify
+# TODO: RESTify.
 get '/charts/:id/delete' do
   @chart = Chart.find(params[:id])
   @chart.destroy!
