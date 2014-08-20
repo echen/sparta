@@ -26,5 +26,7 @@ Support for data sources besides MySQL (e.g., CSV files, other databases, Hadoop
 4. Launch the app with `ruby app.rb`.
 
 ## TODOs
-* Add dashboard functionality
-* Support multiple databases better
+
+* Add dashboard functionality.
+* Support multiple databases better.
+* Make it easier and more obvious to fill out the necessary fields for different chart types.
