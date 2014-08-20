@@ -24,7 +24,7 @@
   </div>
 
   <div class="form-group">
-    <label for="chart[chart_type]" class="col-sm-1 control-label">Chart Type</label>
+    <label for="chart[database]" class="col-sm-1 control-label">Database</label>
     <div class="col-sm-5">
       <select name="chart[database]">
         <% DB_CONFIGS.keys.each do |db| %>
@@ -53,20 +53,20 @@
   </div>
   
   <div class="form-group">
-    <label for="chart[x_column]" class="col-sm-1 control-label">X Column</label>
+    <label for="chart[x_column]" class="col-sm-1 control-label">Date Column</label>
     <div class="col-sm-5">
       <input type="text" name="chart[x_column]" placeholder="Name of your x-axis column" class="form-control" value="<%= @chart.x_column %>" />
     </div>
   </div>  
 
   <div class="form-group">
-    <label for="chart[y_column]" class="col-sm-1 control-label">Y Column</label>
+    <label for="chart[y_column]" class="col-sm-1 control-label">Value Column</label>
     <div class="col-sm-5">
       <input type="text" name="chart[y_column]" placeholder="Name of your y-axis column" class="form-control" value="<%= @chart.y_column %>" />
     </div>
   </div>
   
-  <div class="form-group">
+  <div class="form-group" id="grouping_column_group">
     <label for="chart[grouping_column]" class="col-sm-1 control-label">Grouping Column</label>
     <div class="col-sm-5">
       <input type="text" name="chart[grouping_column]" placeholder="Name of your grouping column" class="form-control" value="<%= @chart.grouping_column %>" />
@@ -86,6 +86,33 @@
 </form>
 
 <script type="text/javascript">
+  $("select[name='chart[chart_type]']").change(function() {
+    var chartType = $("select[name='chart[chart_type]'] option:selected").text();
+    console.log(chartType);
+    
+    if (chartType == "Bar Chart") {
+      $("label[for='chart[x_column]']").text("Bar Label Column");
+      $("label[for='chart[y_column]']").text("Bar Width Column");
+      $("input[name='chart[x_column]']").attr("placeholder", "Name of the column containing the label of each bar");
+      $("input[name='chart[y_column]']").attr("placeholder", "Name of the column containing the width of each bar");      
+      $("#grouping_column_group").hide();
+    } else if (chartType == "Time Series") {
+      $("label[for='chart[x_column]']").text("Date Column");
+      $("label[for='chart[y_column]']").text("Value Column");
+      $("input[name='chart[x_column]']").attr("placeholder", "Name of the column containing the date of each point");
+      $("input[name='chart[y_column]']").attr("placeholder", "Name of the column containing the value of each point");      
+      $("#grouping_column_group").show();      
+      
+    } else if (chartType == "Line Chart") {
+      $("label[for='chart[x_column]']").text("X Column");
+      $("label[for='chart[y_column]']").text("Y Column");
+      $("input[name='chart[x_column]']").attr("placeholder", "Name of the x-axis column");
+      $("input[name='chart[y_column]']").attr("placeholder", "Name of the y-axis column");      
+      $("#grouping_column_group").show();      
+    }
+  });
+  
+  /* Code Mirror */
 	var editor = CodeMirror.fromTextArea(document.getElementById("chart_sql_query"), {
     mode: "text/x-mysql",
     tabMode: "indent",
@@ -98,5 +125,5 @@
       hlLine = editor.setLineClass(editor.getCursor().line, null, "activeline");
     }
   });
-  var hlLine = editor.setLineClass(0, "activeline");
+  var hlLine = editor.setLineClass(0, "activeline");    
 </script>

@@ -60,7 +60,15 @@ end
 
 get '/charts/:id' do
   @chart = Chart.find(params[:id])
-  @data = @chart.sql_client.query(@chart.sql_query).to_a.to_json
+  @has_data_error = false
+  @data_error_message = ""
+  @data = []
+  begin
+    @data = @chart.get_json_data
+  rescue Exception => e
+    @data_error = true
+    @data_error_message = e.message
+  end
   
   erb :"charts/show"
 end
@@ -86,13 +94,6 @@ get '/charts/:id/delete' do
   @chart.destroy!
   
   redirect "/charts"
-end
-
-get '/charts/:id' do
-  @chart = Chart.find(params[:id])
-  @data = @chart.sql_client.query(@chart.sql_query).to_a.to_json
-  
-  erb :"charts/show"
 end
 
 post '/charts/save' do
