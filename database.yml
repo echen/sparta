@@ -1,0 +1,18 @@
+sparta_dev:
+  adapter: mysql2
+  host: localhost
+  username: root
+  password:
+  database: sparta
+  encoding: utf8
+
+sparta_prod:
+  adapter: mysql2
+  host: localhost
+  username: root
+  password:
+  database: sparta
+  encoding: utf8
+  
+# Add any databases whose data you want to visualize here.
+# Note: they should be limited to read-only access!

@@ -2,13 +2,22 @@ require 'json'
 require 'mysql2'
 require 'sinatra'
 require 'sinatra/activerecord'
+require 'yaml'
+
 require './environments'
 
-class Chart < ActiveRecord::Base
-end
+DB_CONFIGS = YAML.load_file("database.yml")
 
-# TODO: pull from the environments.rb (or some database.yml) file.
-SQL_CLIENT = Mysql2::Client.new(:host => 'localhost', :username => 'root', :password => '', :database => 'sparta')
+class Chart < ActiveRecord::Base
+  def sql_client
+    Mysql2::Client.new(
+      :host => DB_CONFIGS[self.database]["host"],
+      :username => DB_CONFIGS[self.database]["username"],
+      :password => DB_CONFIGS[self.database]["password"],
+      :database => DB_CONFIGS[self.database]["database"]
+    )    
+  end
+end
 
 get '/' do
   redirect "/charts"
@@ -28,7 +37,7 @@ end
 
 get '/charts/:id' do
   @chart = Chart.find(params[:id])
-  @data = SQL_CLIENT.query(@chart.sql_query).to_a.to_json
+  @data = @chart.sql_client.query(@chart.sql_query).to_a.to_json
   
   erb :"charts/show"
 end
@@ -58,7 +67,7 @@ end
 
 get '/charts/:id' do
   @chart = Chart.find(params[:id])
-  @data = SQL_CLIENT.query(@chart.sql_query).to_a.to_json
+  @data = @chart.sql_client.query(@chart.sql_query).to_a.to_json
   
   erb :"charts/show"
 end
