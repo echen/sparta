@@ -86,10 +86,8 @@
 </form>
 
 <script type="text/javascript">
-  $("select[name='chart[chart_type]']").change(function() {
+  function updateFormFields() {
     var chartType = $("select[name='chart[chart_type]'] option:selected").text();
-    console.log(chartType);
-    
     if (chartType == "Bar Chart") {
       $("label[for='chart[x_column]']").text("Bar Label Column");
       $("label[for='chart[y_column]']").text("Bar Width Column");
@@ -109,7 +107,12 @@
       $("input[name='chart[x_column]']").attr("placeholder", "Name of the x-axis column");
       $("input[name='chart[y_column]']").attr("placeholder", "Name of the y-axis column");      
       $("#grouping_column_group").show();      
-    }
+    }        
+  };
+  updateFormFields();
+  
+  $("select[name='chart[chart_type]']").change(function() {
+    updateFormFields();
   });
   
   /* Code Mirror */
