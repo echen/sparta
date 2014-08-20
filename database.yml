@@ -16,3 +16,10 @@ sparta_prod:
   
 # Add any databases whose data you want to visualize here.
 # Note: they should be limited to read-only access!
+
+sample_impala_db:
+  adapter: impala
+  host: localhost
+  port: 21000  
+  username: avibryant
+  
