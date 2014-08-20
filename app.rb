@@ -32,14 +32,6 @@ class Chart < ActiveRecord::Base
     end
   end
   
-  def sql_client
-    Mysql2::Client.new(
-      :host => DB_CONFIGS[self.database]["host"],
-      :username => DB_CONFIGS[self.database]["username"],
-      :password => DB_CONFIGS[self.database]["password"],
-      :database => DB_CONFIGS[self.database]["database"]
-    )    
-  end
 end
 
 get '/' do
@@ -103,7 +95,7 @@ post '/charts/save' do
     else
       Chart.find(params[:chart][:id])      
     end
-    @chart.update(params[:chart])
+  @chart.update(params[:chart])
   
   if @chart.save
     redirect "charts/#{@chart.id}"
