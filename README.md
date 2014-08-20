@@ -20,8 +20,8 @@ Support for data sources besides MySQL (e.g., CSV files, other databases, Hadoop
 
 ## Getting Started
 
-1. First, you'll need to tweak the `environments.rb` file to connect to the correct database.
-2. Then make sure you have Ruby installed, and install the necessary gems with `bundle install`.
+1. First, tweak the `database.yml` file to connect to the database where the tables the app needs will be created, and add any databases you want to be able to turn into charts.
+2. Make sure you have Ruby installed, and install the necessary gems with `bundle install`.
 3. Create the MySQL tables that the app uses with `rake db:migrate` .
 4. Launch the app with `ruby app.rb`.
 
