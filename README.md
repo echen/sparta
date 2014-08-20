@@ -2,7 +2,7 @@
 
 ## What
 
-Instantly turn your data into charts and dashboards. Born in a Twitter war room.
+Instantly turn your data into charts and dashboards.
 
 [![Sparta](https://dl.dropboxusercontent.com/u/10506/blog/sparta/sparta.png)](https://dl.dropboxusercontent.com/u/10506/blog/sparta/sparta.png)
 
