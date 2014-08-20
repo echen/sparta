@@ -1,3 +1,4 @@
+require 'impala'
 require 'json'
 require 'mysql2'
 require 'sinatra'
@@ -9,6 +10,28 @@ require './environments'
 DB_CONFIGS = YAML.load_file("database.yml")
 
 class Chart < ActiveRecord::Base
+  
+  def get_json_data
+    db_config = DB_CONFIGS[self.database]
+    
+    if db_config["adapter"] == "mysql2"
+      mysql_client = Mysql2::Client.new(
+        :host => db_config["host"],
+        :username => db_config["username"],
+        :password => db_config["password"],
+        :database => db_config["database"]
+      )
+      
+      return mysql_client.query(self.sql_query).to_a.to_json  
+    elsif db_config["adapter"] == "impala"
+      data = Impala.connect(db_config["host"], db_config["port"], {:user => db_config["username"]}) do |conn|
+        conn.query(self.sql_query)
+      end
+      
+      return data.to_json
+    end
+  end
+  
   def sql_client
     Mysql2::Client.new(
       :host => DB_CONFIGS[self.database]["host"],
