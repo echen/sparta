@@ -1,14 +1,14 @@
 <form class="form-horizontal" role="form" action="/charts/save" method="post">
-  
+
   <input type="hidden" name="chart[id]" value="<%= @chart.id %>" />
-  
+
   <div class="form-group">
     <label for="chart[title]" class="col-sm-1 control-label">Title</label>
     <div class="col-sm-5">
       <input type="text" name="chart[title]" placeholder="Title of your chart" class="form-control" value="<%= @chart.title %>" />
     </div>
   </div>
-  
+
   <div class="form-group">
     <label for="chart[creator]" class="col-sm-1 control-label">Creator</label>
     <div class="col-sm-5">
@@ -28,22 +28,22 @@
     <div class="col-sm-5">
       <select name="chart[database]">
         <% DB_CONFIGS.keys.each do |db| %>
-          <option value="<%= db %>" <%= @chart.database == db ? "selected" : "" %>><%= db %></option>        
+          <option value="<%= db %>" <%= @chart.database == db ? "selected" : "" %>><%= db %></option>
         <% end %>
       </select>
     </div>
   </div>
-    
+
   <div class="form-group">
     <label for="chart[chart_type]" class="col-sm-1 control-label">Chart Type</label>
     <div class="col-sm-5">
       <select name="chart[chart_type]">
-        <% ["Bar Chart", "Time Series", "Line Chart"].each do |chart_type| %>
-          <option value="<%= chart_type %>" <%= @chart.chart_type == chart_type ? "selected" : "" %>><%= chart_type %></option>        
+        <% ["Bar Chart", "Pie Chart", "Time Series", "Line Chart"].each do |chart_type| %>
+          <option value="<%= chart_type %>" <%= @chart.chart_type == chart_type ? "selected" : "" %>><%= chart_type %></option>
         <% end %>
       </select>
     </div>
-  </div>  
+  </div>
 
   <div class="form-group">
     <label for="chart[sql_query]" class="col-sm-1 control-label">SQL Query</label>
@@ -51,13 +51,13 @@
       <textarea name="chart[sql_query]" placeholder="SQL Query" class="form-control" rows="10" id="chart_sql_query"><%= @chart.sql_query %></textarea>
     </div>
   </div>
-  
+
   <div class="form-group">
     <label for="chart[x_column]" class="col-sm-1 control-label">Date Column</label>
     <div class="col-sm-5">
       <input type="text" name="chart[x_column]" placeholder="Name of your x-axis column" class="form-control" value="<%= @chart.x_column %>" />
     </div>
-  </div>  
+  </div>
 
   <div class="form-group">
     <label for="chart[y_column]" class="col-sm-1 control-label">Value Column</label>
@@ -65,24 +65,24 @@
       <input type="text" name="chart[y_column]" placeholder="Name of your y-axis column" class="form-control" value="<%= @chart.y_column %>" />
     </div>
   </div>
-  
+
   <div class="form-group" id="grouping_column_group">
     <label for="chart[grouping_column]" class="col-sm-1 control-label">Grouping Column</label>
     <div class="col-sm-5">
       <input type="text" name="chart[grouping_column]" placeholder="Name of your grouping column" class="form-control" value="<%= @chart.grouping_column %>" />
     </div>
-  </div>  
+  </div>
 
   <br />
-  
+
   <input type="submit" class="btn btn-primary" value="Save"></input>
 
   <!-- TODO: RESTify -->
   <% if !@chart.id.nil? && !@chart.id.to_s.empty? %>
-    <a href="/charts/<%= @chart.id %>/copy" class="btn btn-primary">Copy</a>    
+    <a href="/charts/<%= @chart.id %>/copy" class="btn btn-primary">Copy</a>
     <a href="/charts/<%= @chart.id %>/delete" class="btn btn-primary" onclick="return confirm('Are you sure?')">Delete</a>
   <% end %>
-  
+
 </form>
 
 <script type="text/javascript">
@@ -92,29 +92,36 @@
       $("label[for='chart[x_column]']").text("Bar Label Column");
       $("label[for='chart[y_column]']").text("Bar Width Column");
       $("input[name='chart[x_column]']").attr("placeholder", "Name of the column containing the label of each bar");
-      $("input[name='chart[y_column]']").attr("placeholder", "Name of the column containing the width of each bar");      
+      $("input[name='chart[y_column]']").attr("placeholder", "Name of the column containing the width of each bar");
       $("#grouping_column_group").hide();
     } else if (chartType == "Time Series") {
       $("label[for='chart[x_column]']").text("Date Column");
       $("label[for='chart[y_column]']").text("Value Column");
       $("input[name='chart[x_column]']").attr("placeholder", "Name of the column containing the date of each point");
-      $("input[name='chart[y_column]']").attr("placeholder", "Name of the column containing the value of each point");      
-      $("#grouping_column_group").show();      
-      
+      $("input[name='chart[y_column]']").attr("placeholder", "Name of the column containing the value of each point");
+      $("#grouping_column_group").show();
+
     } else if (chartType == "Line Chart") {
       $("label[for='chart[x_column]']").text("X Column");
       $("label[for='chart[y_column]']").text("Y Column");
       $("input[name='chart[x_column]']").attr("placeholder", "Name of the x-axis column");
-      $("input[name='chart[y_column]']").attr("placeholder", "Name of the y-axis column");      
-      $("#grouping_column_group").show();      
-    }        
+      $("input[name='chart[y_column]']").attr("placeholder", "Name of the y-axis column");
+      $("#grouping_column_group").show();
+
+    } else if (chartType == "Pie Chart") {
+      $("label[for='chart[x_column]'").text("Slice Label");
+      $("label[for='chart[y_column]'").text("Slice Size");
+      $("input[name='chart[x_column]'").attr("placeholder", "Name of column containing the label of each slice");
+      $("input[name='chart[y_column]'").attr("placeholder", "Name of column containing the relative size of each slice");
+      $("#grouping_column_group").hide();
+    }
   };
   updateFormFields();
-  
+
   $("select[name='chart[chart_type]']").change(function() {
     updateFormFields();
   });
-  
+
   /* Code Mirror */
 	var editor = CodeMirror.fromTextArea(document.getElementById("chart_sql_query"), {
     mode: "text/x-mysql",
@@ -128,5 +135,5 @@
       hlLine = editor.setLineClass(editor.getCursor().line, null, "activeline");
     }
   });
-  var hlLine = editor.setLineClass(0, "activeline");    
+  var hlLine = editor.setLineClass(0, "activeline");
 </script>

@@ -22,18 +22,20 @@
 <script type="text/javascript">
   var config = {};
   config.data = <%= @data %>;
-  config.xColumn = "<%= @chart.x_column %>";  
-  config.yColumn = "<%= @chart.y_column %>";  
-  config.groupingColumn = "<%= @chart.grouping_column %>";  
+  config.xColumn = "<%= @chart.x_column %>";
+  config.yColumn = "<%= @chart.y_column %>";
+  config.groupingColumn = "<%= @chart.grouping_column %>";
   config.where = "#chart svg";
-  
+
   <% if @chart.chart_type == "Bar Chart" %>
     sparta.makeBarChart(config);
+  <% elsif @chart.chart_type == "Pie Chart" %>
+    sparta.makePieChart(config);
   <% elsif @chart.chart_type == "Time Series" %>
     sparta.makeTimeSeries(config);
   <% elsif @chart.chart_type == "Stacked Time Series" %>
-    sparta.makeStackedTimeSeries(config);    
-  <% elsif @chart.chart_type == "Line Chart" %>    
-    sparta.makeLineChart(config);  
+    sparta.makeStackedTimeSeries(config);
+  <% elsif @chart.chart_type == "Line Chart" %>
+    sparta.makeLineChart(config);
   <% end %>
 </script>
