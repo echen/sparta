@@ -11,7 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140728025221) do
+ActiveRecord::Schema.define(version: 20140926034131) do
+
+  create_table "charts", force: true do |t|
+    t.string   "title"
+    t.string   "creator"
+    t.text     "description"
+    t.string   "chart_type"
+    t.string   "database"
+    t.text     "sql_query"
+    t.string   "x_column"
+    t.string   "y_column"
+    t.string   "grouping_column"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "d_games", id: false, force: true do |t|
     t.integer "game_id"
@@ -87,7 +101,7 @@ ActiveRecord::Schema.define(version: 20140728025221) do
     t.integer "g_saved"
   end
 
-  create_table "graph_builders", force: true do |t|
+  create_table "foo", force: true do |t|
     t.string   "title"
     t.string   "creator"
     t.text     "description"
