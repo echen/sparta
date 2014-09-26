@@ -1,6 +1,6 @@
 sparta_dev:
   adapter: mysql2
-  host: localhost
+  host: 127.0.0.1
   username: root
   password:
   database: sparta
@@ -8,18 +8,17 @@ sparta_dev:
 
 sparta_prod:
   adapter: mysql2
-  host: localhost
+  host: 127.0.0.1
   username: root
   password:
   database: sparta
   encoding: utf8
-  
+
 # Add any databases whose data you want to visualize here.
 # Note: they should be limited to read-only access!
 
 sample_impala_db:
   adapter: impala
-  host: localhost
-  port: 21000  
+  host: 127.0.0.1
+  port: 21000
   username: avibryant
-  
