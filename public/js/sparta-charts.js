@@ -41,6 +41,28 @@ sparta.makeBarChart = function(config) {
   });
 };
 
+sparta.makePieChart = function(config) {
+  var nvd3Data = convertIntoNvd3Format(config.data, config)[0].values;
+
+  nv.addGraph(function() {
+    var chart = nv.models.pieChart()
+      .x(function(d) { return d.x })
+      .y(function(d) { return d.y })
+      .showLabels(true)
+      .labelThreshold(0.05)
+      ;
+
+    d3.select(config.where)
+      .datum(nvd3Data)
+      .transition().duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+};
+
 sparta.makeTimeSeries = function(config) {
   var dateParsedData = jQuery.extend(true, {}, config.data);
   _.each(dateParsedData, function(d) {
