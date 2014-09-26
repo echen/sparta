@@ -19,7 +19,8 @@ class Chart < ActiveRecord::Base
         :host => db_config["host"],
         :username => db_config["username"],
         :password => db_config["password"],
-        :database => db_config["database"]
+        :database => db_config["database"],
+        :port => db_config["port"],
       )
       
       return mysql_client.query(self.sql_query).to_a.to_json  
