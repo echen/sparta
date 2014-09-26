@@ -14,16 +14,18 @@ Yeah, you could write a query to extract the data, download it, and dump it into
 - It's hard to send pictures of graphs around. Attaching screenshots to emails doesn't always work, and your image is probably at a poor resolution anyways. Why not link to a chart that's fully interactive?
 - Seeing the query that generated the data can be very useful. It explains what the chart is displaying, and also teaches coworkers what different tables and columns mean.
 
-Sparta is a web app that allows you to write a SQL query, and quickly turn it into a chart (bar chart, time series, etc.) or dashboard. Think of it like a lightweight, simpler Tableau.  
+Sparta is a web app that allows you to write a SQL query, and quickly turn it into a chart (bar chart, time series, etc.) or dashboard. Think of it like a lightweight, simpler Tableau.
 
 Support for data sources besides MySQL (e.g., CSV files, other databases, Hadoop, etc.) coming soon.
 
 ## Getting Started
 
 1. First, tweak the `database.yml` file to connect to the database where the tables the app needs will be created, and add any databases you want to be able to turn into charts.
-2. Make sure you have Ruby installed, and install the necessary gems with `bundle install`.
-3. Create the MySQL tables that the app uses with `rake db:migrate` .
-4. Launch the app with `ruby app.rb`.
+2. Make sure you have Ruby 1.9.3 installed
+3. Install the bundler with `gem install bundler`
+4. Install the necessary gems with `bundle install`.
+5. Create the MySQL tables that the app uses with `rake db:migrate` .
+6. Launch the app with `ruby app.rb`.
 
 ## Usage
 
