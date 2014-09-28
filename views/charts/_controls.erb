@@ -1,0 +1,13 @@
+<form class="form-inline" role="form" method="get">
+    <% @control_params.each do |param| %>
+        <label for="<%= param["name"] %>">
+            <%= param["name"].sub("_", " ").titleize %>
+        </label>
+        <input type="<%= param["type"] %>" class="chartControl" name="<%= param["name"] %>" value="<%= param["value"] %>"
+        <% (param["props"] or []).each do |name, val| %>
+        <%= name %>="<%= val %>"
+        <% end %>
+        >
+    <% end %>
+  <input type="submit" class="btn btn-primary" value="Update"></input>
+</form>
