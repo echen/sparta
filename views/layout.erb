@@ -5,7 +5,7 @@
     <title>Sparta</title>
 
     <script src="/js/sparta-charts.js" type="text/javascript"></script>
-    <script src="/js/sparta-quotes.js" type="text/javascript"></script>    
+    <script src="/js/sparta-quotes.js" type="text/javascript"></script>
     <link href="/css/main.css" media="screen" rel="stylesheet" type="text/css" />    
 
     <!-- jQuery -->
@@ -41,6 +41,9 @@
     <script src="/js/codemirror.js" type="text/javascript"></script>
     <script src="/js/mysql.js" type="text/javascript"></script>    
     <link href="/css/codemirror.css" rel="stylesheet">    
+
+
+    <script src="/js/sparta-rack-method-overrides.js" type="text/javascript"></script>
   </head>
 
   <body>
@@ -81,5 +84,6 @@
 
   <script type="text/javascript">
       $("#quote").text(sparta.quote());
+      sparta.rackMethodOverrides.init();
     </script>
 </html>

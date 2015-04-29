@@ -1,4 +1,4 @@
-<form class="form-horizontal" role="form" action="/charts/save" method="post">
+<form class="form-horizontal" role="form" action="/charts" method="post">
 
   <input type="hidden" name="chart[id]" value="<%= @chart.id %>" />
 
@@ -77,10 +77,9 @@
 
   <input type="submit" class="btn btn-primary" value="Save"></input>
 
-  <!-- TODO: RESTify -->
   <% if !@chart.id.nil? && !@chart.id.to_s.empty? %>
-    <a href="/charts/<%= @chart.id %>/copy" class="btn btn-primary">Copy</a>
-    <a href="/charts/<%= @chart.id %>/delete" class="btn btn-primary" onclick="return confirm('Are you sure?')">Delete</a>
+    <a href="/charts/<%= @chart.id %>/copy" class="btn btn-primary" data-method="put">Copy</a>
+    <a href="/charts/<%= @chart.id %>" class="btn btn-primary" data-method="delete" data-confirm="Are you sure?">Delete</a>
   <% end %>
 
 </form>
