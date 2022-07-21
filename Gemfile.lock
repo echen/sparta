@@ -42,10 +42,10 @@ GEM
       daemons (>= 1.0.9)
       eventmachine (>= 1.0.0)
       rack (>= 1.0.0)
-    thread_safe (0.3.4)
+    thread_safe (0.3.6)
     thrift (0.9.1)
     tilt (1.4.1)
-    tzinfo (1.2.1)
+    tzinfo (1.2.10)
       thread_safe (~> 0.1)
 
 PLATFORMS
